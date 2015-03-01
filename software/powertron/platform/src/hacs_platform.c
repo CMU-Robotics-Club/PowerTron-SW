@@ -6,6 +6,8 @@
 #include "stm32f4xx_hal.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "ads7229.h"
+#include "tlv5636.h"
 
 /* Platform static data */
 uint8_t hacs_critical_ref_count = 0; // Critical section reference count
@@ -24,55 +26,22 @@ void hacs_platform_init(void)
              duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and 
              handled in milliseconds basis.
        - Low Level Initialization
-     */
-    HAL_Init();
+  */
+  HAL_Init();
   
-    /* Configure the System clock to 100 MHz */
-    system_clock_config();
+  /* Configure the System clock to 100 MHz */
+  system_clock_config();
 
 	/* Init debug UART */
-    debug_uart_init(115200);
+  debug_uart_init(115200);
 
 	/* Init SPI master */
-    spi_master_init(HACS_SPI_NRF24, 1000000, HACS_SPI_CPOL_1, HACS_SPI_CPHA_0);
+  spi_master_init(HACS_SPI_TLV5636, 1000000, HACS_SPI_CPOL_1, HACS_SPI_CPHA_0);
+  spi_master_init(HACS_SPI_ADS7229, 1000000, HACS_SPI_CPOL_0, HACS_SPI_CPHA_1);
 
-	/* Init I2C master */
-
-	/* Init USART */
-
-	/* Init sensors and radio */
-
-	// [SURG] Temporary: init GPIOs used for testing ADS7229
-	GPIO_InitTypeDef GPIO_InitStruct; /*
-	// CS
-	GPIO_InitStruct.Pin       = ADS7229_CS_PIN;
-    GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull      = GPIO_PULLUP;
-    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = 0;
-    HAL_GPIO_Init(ADS7229_CS_PORT, &GPIO_InitStruct);
-    // EOC
-	GPIO_InitStruct.Pin       = ADS7229_EOC_PIN;
-    GPIO_InitStruct.Mode      = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull      = GPIO_PULLDOWN;
-    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = 0;
-    HAL_GPIO_Init(ADS7229_EOC_PORT, &GPIO_InitStruct);
-    // CONVST
-	GPIO_InitStruct.Pin       = ADS7229_CONVST_PIN;
-    GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull      = GPIO_PULLUP;
-    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = 0;
-    HAL_GPIO_Init(ADS7229_CONVST_PORT , &GPIO_InitStruct);
-*/
-    // CS
-	GPIO_InitStruct.Pin       = TLV5636_FS_PIN;
-    GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull      = GPIO_PULLUP;
-    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = 0;
-    HAL_GPIO_Init(TLV5636_FS_PORT, &GPIO_InitStruct);
+	/* Init devices */
+  tlv5636_init();
+  ads7229_init();
 }
 
 // Redirect putc to UART send

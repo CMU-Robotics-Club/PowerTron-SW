@@ -70,16 +70,16 @@
         <option>
           <name>GRuntimeLibSelect</name>
           <version>0</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>GRuntimeLibSelectSlave</name>
           <version>0</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
+          <state>Use the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
@@ -133,7 +133,7 @@
         </option>
         <option>
           <name>RTConfigPath2</name>
-          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
+          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Full.h</state>
         </option>
         <option>
           <name>GFPUCoreSlave</name>
@@ -299,13 +299,13 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\powertron\app</state>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\powertron\platform</state>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\powertron\device</state>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\third_party\CMSIS\Device\ST\STM32F4xx\Include</state>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\third_party\CMSIS\Include</state>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\third_party\STM32F4xx_HAL_Driver\Inc</state>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\third_party\FreeRTOS\Source</state>
+          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\powertron\app\include</state>
+          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\powertron\platform\include</state>
+          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\powertron\device\inc</state>
+          <state>$PROJ_DIR$\..\..\software\third_party\CMSIS\Device\ST\STM32F4xx\Include</state>
+          <state>$PROJ_DIR$\..\..\software\third_party\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Inc</state>
+          <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\third_party\FreeRTOS\Source\include</state>
           <state>D:\Anson\Documents\GitHub\PowerTron-SW\software\third_party\FreeRTOS\Source\portable\IAR\ARM_CM4F</state>
         </option>
         <option>
@@ -720,7 +720,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>D:\Anson\Documents\GitHub\PowerTron-SW\project\IAR\stm32f411xe_flash.icf</state>
+          <state>$PROJ_DIR$\stm32f411xe_flash.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1913,11 +1913,20 @@
   </group>
   <group>
     <name>device</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\software\powertron\device\src\ads7229.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\software\powertron\device\src\tlv5636.c</name>
+    </file>
   </group>
   <group>
     <name>platform</name>
     <file>
       <name>$PROJ_DIR$\..\..\software\powertron\platform\src\hacs_debug_uart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\software\powertron\platform\src\hacs_gpio.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\software\powertron\platform\src\hacs_platform.c</name>
@@ -2061,9 +2070,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_ltdc.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_msp_template.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_nand.c</name>

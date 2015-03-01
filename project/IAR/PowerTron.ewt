@@ -190,11 +190,20 @@
   </group>
   <group>
     <name>device</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\software\powertron\device\src\ads7229.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\software\powertron\device\src\tlv5636.c</name>
+    </file>
   </group>
   <group>
     <name>platform</name>
     <file>
       <name>$PROJ_DIR$\..\..\software\powertron\platform\src\hacs_debug_uart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\software\powertron\platform\src\hacs_gpio.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\software\powertron\platform\src\hacs_platform.c</name>
@@ -338,9 +347,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_ltdc.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_msp_template.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\software\third_party\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_nand.c</name>

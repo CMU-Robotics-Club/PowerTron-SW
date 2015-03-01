@@ -183,6 +183,32 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
     // TODO: initialize DMA and IT
 
     __SPI3_CLK_ENABLE();
+  } else if (hspi->Instance == SPI1) {
+    GPIO_InitTypeDef  GPIO_InitStruct;
+
+    SPI1_MOSI_GPIO_CLK_ENABLE();
+    SPI1_MISO_GPIO_CLK_ENABLE();
+    SPI1_SCK_GPIO_CLK_ENABLE();
+
+    GPIO_InitStruct.Pin       = SPI1_MOSI_PIN;
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull      = GPIO_NOPULL;
+    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+    GPIO_InitStruct.Alternate = SPI1_MOSI_AF;
+    HAL_GPIO_Init(SPI1_MOSI_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin       = SPI1_SCK_PIN;
+    GPIO_InitStruct.Alternate = SPI1_SCK_AF;
+    HAL_GPIO_Init(SPI1_SCK_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin       = SPI1_MISO_PIN;
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Alternate = SPI1_MISO_AF;
+    HAL_GPIO_Init(SPI1_MISO_PORT, &GPIO_InitStruct);
+
+    // TODO: initialize DMA and IT
+
+    __SPI1_CLK_ENABLE();
   }
 }
 
