@@ -157,7 +157,33 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
-  if (hspi->Instance == SPI3) {
+  if (hspi->Instance == SPI2) {
+    GPIO_InitTypeDef  GPIO_InitStruct;
+
+    SPI2_MOSI_GPIO_CLK_ENABLE();
+    SPI2_MISO_GPIO_CLK_ENABLE();
+    SPI2_SCK_GPIO_CLK_ENABLE();
+
+    GPIO_InitStruct.Pin       = SPI2_MOSI_PIN;
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull      = GPIO_NOPULL;
+    GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
+    GPIO_InitStruct.Alternate = SPI2_MOSI_AF;
+    HAL_GPIO_Init(SPI2_MOSI_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin       = SPI2_SCK_PIN;
+    GPIO_InitStruct.Alternate = SPI2_SCK_AF;
+    HAL_GPIO_Init(SPI2_SCK_PORT, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin       = SPI2_MISO_PIN;
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Alternate = SPI2_MISO_AF;
+    HAL_GPIO_Init(SPI2_MISO_PORT, &GPIO_InitStruct);
+
+    // TODO: initialize DMA and IT
+    __SPI2_CLK_ENABLE();
+
+  } else if (hspi->Instance == SPI3) {
     GPIO_InitTypeDef  GPIO_InitStruct;
 
     SPI3_MOSI_GPIO_CLK_ENABLE();
@@ -181,40 +207,49 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
     HAL_GPIO_Init(SPI3_MISO_PORT, &GPIO_InitStruct);
 
     // TODO: initialize DMA and IT
-
     __SPI3_CLK_ENABLE();
-  } else if (hspi->Instance == SPI1) {
+
+  } else if (hspi->Instance == SPI4) {
     GPIO_InitTypeDef  GPIO_InitStruct;
 
-    SPI1_MOSI_GPIO_CLK_ENABLE();
-    SPI1_MISO_GPIO_CLK_ENABLE();
-    SPI1_SCK_GPIO_CLK_ENABLE();
+    SPI4_MOSI_GPIO_CLK_ENABLE();
+    SPI4_MISO_GPIO_CLK_ENABLE();
+    SPI4_SCK_GPIO_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin       = SPI1_MOSI_PIN;
+    GPIO_InitStruct.Pin       = SPI4_MOSI_PIN;
     GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull      = GPIO_NOPULL;
     GPIO_InitStruct.Speed     = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = SPI1_MOSI_AF;
-    HAL_GPIO_Init(SPI1_MOSI_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.Alternate = SPI4_MOSI_AF;
+    HAL_GPIO_Init(SPI4_MOSI_PORT, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin       = SPI1_SCK_PIN;
-    GPIO_InitStruct.Alternate = SPI1_SCK_AF;
-    HAL_GPIO_Init(SPI1_SCK_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.Pin       = SPI4_SCK_PIN;
+    GPIO_InitStruct.Alternate = SPI4_SCK_AF;
+    HAL_GPIO_Init(SPI4_SCK_PORT, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin       = SPI1_MISO_PIN;
+    GPIO_InitStruct.Pin       = SPI4_MISO_PIN;
     GPIO_InitStruct.Mode      = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Alternate = SPI1_MISO_AF;
-    HAL_GPIO_Init(SPI1_MISO_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.Alternate = SPI4_MISO_AF;
+    HAL_GPIO_Init(SPI4_MISO_PORT, &GPIO_InitStruct);
 
     // TODO: initialize DMA and IT
-
-    __SPI1_CLK_ENABLE();
+    __SPI4_CLK_ENABLE();
   }
 }
 
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 {
-  if (hspi->Instance == SPI3) {
+  if (hspi->Instance == SPI2) {
+    __SPI2_FORCE_RESET();
+    __SPI2_RELEASE_RESET();
+
+    __SPI2_CLK_DISABLE();
+
+    HAL_GPIO_DeInit(SPI2_MOSI_PORT, SPI2_MOSI_PIN);
+    HAL_GPIO_DeInit(SPI2_MISO_PORT, SPI2_MISO_PIN);
+    HAL_GPIO_DeInit(SPI2_SCK_PORT, SPI2_SCK_PIN);
+
+  } else if (hspi->Instance == SPI3) {
     __SPI3_FORCE_RESET();
     __SPI3_RELEASE_RESET();
 
@@ -223,6 +258,16 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
     HAL_GPIO_DeInit(SPI3_MOSI_PORT, SPI3_MOSI_PIN);
     HAL_GPIO_DeInit(SPI3_MISO_PORT, SPI3_MISO_PIN);
     HAL_GPIO_DeInit(SPI3_SCK_PORT, SPI3_SCK_PIN);
+    
+  } else if (hspi->Instance == SPI4) {
+    __SPI4_FORCE_RESET();
+    __SPI4_RELEASE_RESET();
+
+    __SPI4_CLK_DISABLE();
+
+    HAL_GPIO_DeInit(SPI4_MOSI_PORT, SPI4_MOSI_PIN);
+    HAL_GPIO_DeInit(SPI4_MISO_PORT, SPI4_MISO_PIN);
+    HAL_GPIO_DeInit(SPI4_SCK_PORT, SPI4_SCK_PIN);
   }
 }
 

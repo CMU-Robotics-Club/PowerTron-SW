@@ -7,7 +7,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "ads7229.h"
-#include "tlv5636.h"
+#include "ltc2641.h"
 
 /* Platform static data */
 uint8_t hacs_critical_ref_count = 0; // Critical section reference count
@@ -16,7 +16,7 @@ uint8_t hacs_critical_ref_count = 0; // Critical section reference count
 static void system_clock_config(void);
 static void error_handler(void);
 
-void hacs_platform_init(void)
+void hacs_platform_init(void) 
 {
 	/* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch, Flash preread and Buffer caches
@@ -33,15 +33,17 @@ void hacs_platform_init(void)
   system_clock_config();
 
 	/* Init debug UART */
-  debug_uart_init(115200);
+  debug_uart_init(921600);
 
 	/* Init SPI master */
-  spi_master_init(HACS_SPI_TLV5636, 1000000, HACS_SPI_CPOL_1, HACS_SPI_CPHA_0);
-  spi_master_init(HACS_SPI_ADS7229, 1000000, HACS_SPI_CPOL_0, HACS_SPI_CPHA_1);
-
+  spi_master_init(HACS_SPI_LTC2641, 100000, HACS_SPI_CPOL_0, HACS_SPI_CPHA_0);
+  spi_master_init(HACS_SPI_ADS7229_0, 1000000, HACS_SPI_CPOL_0, HACS_SPI_CPHA_1);
+  spi_master_init(HACS_SPI_ADS7229_1, 1000000, HACS_SPI_CPOL_0, HACS_SPI_CPHA_1);
+  
 	/* Init devices */
-  tlv5636_init();
-  ads7229_init();
+  ltc2641_init();
+  ads7229_init(ADS7229_CURRENT_FB);
+  ads7229_init(ADS7229_VOLTAGE_FB);
 }
 
 // Redirect putc to UART send

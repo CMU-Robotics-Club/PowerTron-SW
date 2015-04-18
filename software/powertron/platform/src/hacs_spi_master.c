@@ -2,6 +2,7 @@
 #include "hacs_platform_resources.h"
 #include "hacs_spi_master.h"
 #include "stm32f4xx_hal.h"
+#include "hacs_gpio.h"
 
 #define SPI_OP_TIMEOUT_MS   (HAL_MAX_DELAY)
 
@@ -38,6 +39,11 @@ static uint32_t calc_prescaler_from_freq(hacs_spi_t bus, uint32_t freq)
 int spi_master_init(hacs_spi_t bus, uint32_t freq, uint8_t cpol, uint8_t cpha)
 {
   SPI_HandleTypeDef *p_handle = &spi_handles[bus];
+
+  // Initialize the CS pin
+  gpio_init_pin(hacs_spi_cs_port[bus], hacs_spi_cs_pin[bus], HACS_GPIO_MODE_OUTPUT_PP,
+                HACS_GPIO_NO_PULL);
+  spi_master_deassert_cs(bus);
 
   p_handle->Instance = hacs_spi_instances[bus];
   p_handle->Init.Mode = SPI_MODE_MASTER;
@@ -89,4 +95,12 @@ int spi_master_write(hacs_spi_t bus, uint8_t *wbuf, size_t wsize)
 int spi_master_read(hacs_spi_t bus, uint8_t *rbuf, size_t rsize)
 {
   return HAL_SPI_Receive(&spi_handles[bus], rbuf, rsize, SPI_OP_TIMEOUT_MS);
+}
+
+void spi_master_assert_cs(hacs_spi_t bus) {
+  gpio_write_low(hacs_spi_cs_port[bus], hacs_spi_cs_pin[bus]);
+}
+
+void spi_master_deassert_cs(hacs_spi_t bus) {
+  gpio_write_high(hacs_spi_cs_port[bus], hacs_spi_cs_pin[bus]);
 }

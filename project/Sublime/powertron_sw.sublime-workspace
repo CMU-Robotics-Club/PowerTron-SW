@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"AD",
+				"ADS7229_READ_DATA"
+			],
+			[
+				"gpio_w",
+				"gpio_write_low"
+			],
+			[
+				"ads7",
+				"ads7229_config"
+			],
+			[
+				"tlv5",
+				"tlv5636_init"
+			],
+			[
+				"TLV",
+				"TLV5636_CMD_WRITE_CTRL"
+			],
+			[
+				"tlv",
+				"tlv5636_pwr_t"
+			],
+			[
+				"TLV5636_",
+				"TLV5636_CMD_WRITE_DATA"
+			],
+			[
 				"E",
 				"Error_Handler"
 			],
@@ -207,6 +235,98 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_gpio.c",
+			"settings":
+			{
+				"buffer_size": 1194,
+				"line_ending": "Windows",
+				"name": "#include \"hacs_gpio.h\""
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/ltc2641.c",
+			"settings":
+			{
+				"buffer_size": 645,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/ltc2641.h",
+			"settings":
+			{
+				"buffer_size": 109,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/tlv5636.h",
+			"settings":
+			{
+				"buffer_size": 478,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/tlv5636.c",
+			"settings":
+			{
+				"buffer_size": 1309,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "#ifndef _HACS_PIN_DEFINES_H_\n#define _HACS_PIN_DEFINES_H_\n\n#include \"stm32f4xx_hal.h\"\n\ntypedef GPIO_TypeDef* gpio_port_t;\ntypedef uint16_t gpio_pin_t;\n\n/*** SPI ***/\n#define HACS_NUM_SPI_PERIPH				(3)\n\nextern SPI_TypeDef* const hacs_spi_instances[HACS_NUM_SPI_PERIPH];\n\n// hacs_spi_t is defined as an index\ntypedef enum {\n	HACS_SPI_ADS7229_0 = 0,\n	HACS_SPI_ADS7229_1,\n	HACS_SPI_LTC2641,\n} hacs_spi_t;\n\n/*** GPIO ***/\n\n\n#define ADS7229_0_CS_PORT 	GPIOC\n#define ADS7229_0_CS_PIN 		GPIO_PIN_0\n\n#define ADS7229_0_EOC_PORT 	GPIOC\n#define ADS7229_0_EOC_PIN 	GPIO_PIN_10\n\n#define ADS7229_0_CONVST_PORT 	GPIOC\n#define ADS7229_0_CONVST_PIN 		GPIO_PIN_1\n\n#define ADS7229_1_CS_PORT 	GPIOC\n#define ADS7229_1_CS_PIN 		GPIO_PIN_6\n\n#define ADS7229_1_EOC_PORT 	GPIOC\n#define ADS7229_1_EOC_PIN 	GPIO_PIN_8\n\n#define ADS7229_1_CONVST_PORT 	GPIOC\n#define ADS7229_1_CONVST_PIN 		GPIO_PIN_7\n\n#define LTC2641_CS_PORT		GPIOA\n#define LTC2641_CS_PIN		GPIO_PIN_9\n\n/* Definition for USART2 clock resources */\n#define USART2_RX_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()\n#define USART2_TX_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE() \n\n/* Definition for USART2 Pins */\n#define USART2_TX_PIN                   GPIO_PIN_2\n#define USART2_TX_PORT                  GPIOA  \n#define USART2_TX_AF                    GPIO_AF7_USART2\n#define USART2_RX_PIN                   GPIO_PIN_3\n#define USART2_RX_PORT                  GPIOA \n#define USART2_RX_AF                    GPIO_AF7_USART2\n\n/* Definition for SPI2 resources */ // TODO\n#define SPI2_MOSI_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()\n#define SPI2_MISO_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()\n#define SPI2_SCK_GPIO_CLK_ENABLE()      __GPIOB_CLK_ENABLE()\n\n/* Definition for SPI2 pins */\n#define SPI2_MOSI_PORT                  GPIOC\n#define SPI2_MOSI_PIN                   GPIO_PIN_3\n#define SPI2_MOSI_AF                    GPIO_AF5_SPI2 \n#define SPI2_MISO_PORT                  GPIOC\n#define SPI2_MISO_PIN                   GPIO_PIN_2\n#define SPI2_MISO_AF                    GPIO_AF5_SPI2\n#define SPI2_SCK_PORT                   GPIOB\n#define SPI2_SCK_PIN                    GPIO_PIN_10\n#define SPI2_SCK_AF                     GPIO_AF5_SPI2\n\n/* Definition for SPI3 resources */\n#define SPI3_MOSI_GPIO_CLK_ENABLE()     __GPIOC_CLK_ENABLE()\n#define SPI3_MISO_GPIO_CLK_ENABLE()     __GPIOC_CLK_ENABLE()\n#define SPI3_SCK_GPIO_CLK_ENABLE()      __GPIOB_CLK_ENABLE()\n\n/* Definition for SPI3 pins */\n#define SPI3_MOSI_PORT                  GPIOC\n#define SPI3_MOSI_PIN                   GPIO_PIN_12\n#define SPI3_MOSI_AF                    GPIO_AF6_SPI3\n#define SPI3_MISO_PORT                  GPIOC\n#define SPI3_MISO_PIN                   GPIO_PIN_11\n#define SPI3_MISO_AF                    GPIO_AF6_SPI3\n#define SPI3_SCK_PORT                   GPIOB\n#define SPI3_SCK_PIN                    GPIO_PIN_12\n#define SPI3_SCK_AF                     GPIO_AF7_SPI3\n\n/* Definition for SPI4 resources */\n#define SPI4_MOSI_GPIO_CLK_ENABLE()     __GPIOC_CLK_ENABLE()\n#define SPI4_MISO_GPIO_CLK_ENABLE()     __GPIOC_CLK_ENABLE()\n#define SPI4_SCK_GPIO_CLK_ENABLE()      __GPIOB_CLK_ENABLE()\n\n/* Definition for SPI4 pins */\n#define SPI4_MOSI_PORT                  GPIOA\n#define SPI4_MOSI_PIN                   GPIO_PIN_1\n#define SPI4_MOSI_AF                    GPIO_AF5_SPI4\n#define SPI4_MISO_PORT                  GPIOA\n#define SPI4_MISO_PIN                   GPIO_PIN_11\n#define SPI4_MISO_AF                    GPIO_AF6_SPI4\n#define SPI4_SCK_PORT                   GPIOB\n#define SPI4_SCK_PIN                    GPIO_PIN_13\n#define SPI4_SCK_AF                     GPIO_AF6_SPI4\n\n#endif\n",
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/include/hacs_platform_resources.h",
+			"file_size": 3688,
+			"file_write_time": 130719725317106290,
+			"settings":
+			{
+				"buffer_size": 3585,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_platform_resources.c",
+			"settings":
+			{
+				"buffer_size": 262,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/app/src/hacs_console_commands.c",
+			"settings":
+			{
+				"buffer_size": 599,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_platform.c",
+			"settings":
+			{
+				"buffer_size": 4782,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/ads7229.c",
+			"settings":
+			{
+				"buffer_size": 1912,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/ads7229.h",
+			"settings":
+			{
+				"buffer_size": 1563,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
@@ -232,6 +352,25 @@
 	},
 	"file_history":
 	[
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/stm32f4xx_hal_msp.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/include/hacs_spi_master.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/tlv5636.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/include/hacs_gpio.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/tlv5636.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_platform_resources.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_platform.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/include/hacs_platform_resources.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/app/src/hacs_console_commands.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/ads7229.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/ads7229.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_spi_master.c",
+		"/D/Anson/Downloads/main.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/third_party/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/include/hacs_platform.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/third_party/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/third_party/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h",
+		"/D/Anson/Documents/GitHub/PowerTron-SW/software/third_party/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h",
+		"/C/Users/Anson/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/D/Anson/Documents/GitHub/Hobby_Airplane_Control_System/.gitattributes",
 		"/D/Anson/Documents/GitHub/Hobby_Airplane_Control_System/software/hacs/device/src/ads7229.c",
 		"/D/Anson/Documents/GitHub/Hobby_Airplane_Control_System/software/hacs/device/ads7229.c",
@@ -324,7 +463,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 96.0,
 		"where_history":
 		[
 			""
@@ -335,6 +474,17 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"SPI3",
+			"SPI1",
+			"SPI3",
+			"SPI1",
+			"HAL_SPI_Transfer",
+			"SPI3",
+			"GPIO_PIN_12",
+			"GPIO_TypeDef",
+			"space",
+			"indent",
+			"space",
 			"GPIO_PinState",
 			"SPI_TypeDef",
 			"stm32f4xx.h",
@@ -427,11 +577,17 @@
 			"getThresholdImage"
 		],
 		"highlight": true,
-		"in_selection": false,
+		"in_selection": true,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"SPI4",
+			"SPI2",
+			"SPI4",
+			"SPI2",
+			"SPI4",
+			"SPI1",
 			"p_handle->",
 			"error_handler",
 			"NRF24_BASE_CONFIGURATION",
@@ -454,19 +610,310 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
+			"selected": 5,
 			"sheets":
 			[
-			]
-		},
-		{
-			"sheets":
-			[
+				{
+					"buffer": 0,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_gpio.c",
+					"settings":
+					{
+						"buffer_size": 1194,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								376,
+								376
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#include \"hacs_gpio.h\"",
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/ltc2641.c",
+					"settings":
+					{
+						"buffer_size": 645,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								133,
+								133
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/ltc2641.h",
+					"settings":
+					{
+						"buffer_size": 109,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								108,
+								108
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/tlv5636.h",
+					"settings":
+					{
+						"buffer_size": 478,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								469,
+								431
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/tlv5636.c",
+					"settings":
+					{
+						"buffer_size": 1309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/include/hacs_platform_resources.h",
+					"settings":
+					{
+						"buffer_size": 3585,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								417,
+								417
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_platform_resources.c",
+					"settings":
+					{
+						"buffer_size": 262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								250,
+								250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/app/src/hacs_console_commands.c",
+					"settings":
+					{
+						"buffer_size": 599,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								577,
+								577
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/platform/src/hacs_platform.c",
+					"settings":
+					{
+						"buffer_size": 4782,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								956,
+								956
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 67.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/src/ads7229.c",
+					"settings":
+					{
+						"buffer_size": 1912,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1614,
+								1614
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 52.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/D/Anson/Documents/GitHub/PowerTron-SW/software/powertron/device/inc/ads7229.h",
+					"settings":
+					{
+						"buffer_size": 1563,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								435,
+								435
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -487,18 +934,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.468085106383,
 			1.0
 		],
 		"rows":
@@ -537,6 +977,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 228.0,
+	"side_bar_width": 215.0,
 	"status_bar_visible": true
 }

@@ -194,7 +194,7 @@
       <name>$PROJ_DIR$\..\..\software\powertron\device\src\ads7229.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\software\powertron\device\src\tlv5636.c</name>
+      <name>$PROJ_DIR$\..\..\software\powertron\device\src\ltc2641.c</name>
     </file>
   </group>
   <group>

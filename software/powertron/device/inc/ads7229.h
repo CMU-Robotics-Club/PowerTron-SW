@@ -1,6 +1,11 @@
 #ifndef _ADS7229_H_
 #define _ADS7229_H_
 
+typedef enum {
+	ADS7229_CURRENT_FB = 0,
+	ADS7229_VOLTAGE_FB,
+} ads7229_device_t;
+
 /* Configuration */
 #define ADS7229_CFG_AUTO_CHAN_SELECT		(1 << 11)
 #define ADS7229_CFG_MANUAL_CHAN_SELECT	(0) // Not supported on ADS7229
@@ -34,7 +39,7 @@
 
 #define ADS7229_CFG_DEFAULT	(ADS7229_CFG_AUTO_CHAN_SELECT | \
 														 ADS7229_CFG_INTERNAL_OSC | \
-														 ADS7229_CFG_MANUAL_TRIGGER | \
+														 ADS7229_CFG_AUTO_TRIGGER | \
 														 ADS7229_CFG_EOC_ACTIVE_LOW | \
 														 ADS7229_CFG_PIN10_OUT_USE_EOC |  \
 														 ADS7229_CFG_PIN10_CHAIN_USE_EOC | \
@@ -43,8 +48,9 @@
 														 ADS7229_CFG_DEEP_WAKEUP | \
 														 ADS7229_CFG_NORMAL_OP)
 
-void ads7229_init();
-void ads7229_config(uint16_t cfg_word);
-uint16_t ads7229_convert_and_read();
+void ads7229_init(ads7229_device_t dev);
+void ads7229_config(ads7229_device_t dev, uint16_t cfg_word);
+uint16_t ads7229_convert_and_read(ads7229_device_t dev);
+uint16_t ads7229_read_config(ads7229_device_t dev);
 
 #endif
